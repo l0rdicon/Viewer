@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';
 import { useModal } from '../../contextProviders';
+import classNames from 'classnames';
 
 import Icon from '../Icon';
 import Typography from '../Typography';
@@ -20,6 +21,9 @@ const Modal = ({
   onClose,
   children,
   shouldCloseOnOverlayClick,
+  customClassName,
+  customClassName2,
+  skipOverflow,
 }) => {
   const { hide } = useModal();
 
@@ -51,9 +55,12 @@ const Modal = ({
     );
   };
 
+  //skipOverflow false true ohif-scrollbar
+  console.log("skipOverflow", skipOverflow, !skipOverflow, classNames({"ohif-scrollbar": !skipOverflow}))
+
   return (
     <ReactModal
-      className="relative w-11/12 lg:w-10/12 xl:w-1/2 max-h-full outline-none  text-white"
+      className={classNames(customClassName, "relative", "w-11/12", "lg:w-10/12", "xl:w-1/2", "max-h-full", "outline-none", "text-white")}
       overlayClassName="fixed top-0 left-0 right-0 bottom-0 z-50 bg-overlay flex items-start justify-center py-16"
       shouldCloseOnEsc={shouldCloseOnEsc}
       onRequestClose={handleClose}
@@ -62,7 +69,8 @@ const Modal = ({
       shouldCloseOnOverlayClick={shouldCloseOnOverlayClick}
     >
       {renderHeader()}
-      <section className="ohif-scrollbar modal-content overflow-y-auto px-[20px] pt-2 pb-[20px] rounded-bl rounded-br bg-primary-dark">
+      
+      <section className={classNames(customClassName2,{"ohif-scrollbar": !skipOverflow}, "modal-content", {"overflow-y-auto": !skipOverflow}, "px-[20px]", "pt-2", "pb-[20px]", "rounded-bl", "rounded-br", "bg-primary-dark")}>
         {children}
       </section>
     </ReactModal>
@@ -71,7 +79,7 @@ const Modal = ({
 
 Modal.defaultProps = {
   shouldCloseOnEsc: true,
-  shouldCloseOnOverlayClick: true,
+  shouldCloseOnOverlayClick: true
 };
 
 Modal.propTypes = {
@@ -80,6 +88,8 @@ Modal.propTypes = {
   isOpen: PropTypes.bool,
   title: PropTypes.string,
   onClose: PropTypes.func,
+  customClassName: PropTypes.string,
+  skipOverflow: PropTypes.bool,
   /** The modal's content */
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),

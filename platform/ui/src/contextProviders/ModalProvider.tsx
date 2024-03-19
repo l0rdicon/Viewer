@@ -37,6 +37,8 @@ const ModalProvider = ({ children, modal: Modal, service }) => {
     closeButton: true,
     title: null,
     customClassName: '',
+    customClassName2: '', 
+    skipOverflow: false,
   };
   const { t } = useTranslation('Modals');
 
@@ -78,8 +80,10 @@ const ModalProvider = ({ children, modal: Modal, service }) => {
     isOpen,
     title,
     customClassName,
+    customClassName2,
     shouldCloseOnEsc,
     closeButton,
+    skipOverflow,
     shouldCloseOnOverlayClick,
   } = options;
 
@@ -87,8 +91,11 @@ const ModalProvider = ({ children, modal: Modal, service }) => {
     <Provider value={{ show, hide }}>
       {ModalContent && (
         <Modal
-          className={classNames(customClassName, ModalContent.className)}
+          className={classNames(ModalContent.className)}
+          customClassName={customClassName}
+          customClassName2={customClassName2}
           shouldCloseOnEsc={shouldCloseOnEsc}
+          skipOverflow={skipOverflow}
           isOpen={isOpen}
           title={t(title)}
           closeButton={closeButton}
@@ -132,6 +139,7 @@ ModalProvider.propTypes = {
   service: PropTypes.shape({
     setServiceImplementation: PropTypes.func,
   }),
+  skipOverflow: PropTypes.bool,
 };
 
 export default ModalProvider;

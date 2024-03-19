@@ -29,6 +29,10 @@ import createRoutes from './routes';
 import appInit from './appInit.js';
 import OpenIdConnectRoutes from './utils/OpenIdConnectRoutes';
 
+//set license key for ag-grid
+import {LicenseManager}  from 'ag-grid-enterprise'
+LicenseManager.setLicenseKey("Using_this_AG_Grid_Enterprise_key_( AG-040464 )_in_excess_of_the_licence_granted_is_not_permitted___Please_report_misuse_to_( legal@ag-grid.com )___For_help_with_changing_this_key_please_contact_( info@ag-grid.com )___( CannonRad, LLC )_is_granted_a_( Single Application )_Developer_License_for_the_application_( CannonRad )_only_for_( 1 )_Front-End_JavaScript_developer___All_Front-End_JavaScript_developers_working_on_( CannonRad )_need_to_be_licensed___( CannonRad )_has_been_granted_a_Deployment_License_Add-on_for_( 1 )_Production_Environment___This_key_works_with_AG_Grid_Enterprise_versions_released before_( 2 April 2024 )____[v2]_MTcxMjAxMjQwMDAwMA==87476c11c0e7af129275812b00c775e3");
+
 let commandsManager: CommandsManager,
   extensionManager: ExtensionManager,
   servicesManager: ServicesManager,

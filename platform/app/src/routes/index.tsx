@@ -4,7 +4,7 @@ import { ErrorBoundary } from '@ohif/ui';
 
 // Route Components
 import DataSourceWrapper from './DataSourceWrapper';
-import WorkList from './WorkList';
+import WorkListV2 from './WorkListV2';
 import Local from './Local';
 import Debug from './Debug';
 import NotFound from './NotFound';
@@ -103,7 +103,7 @@ const createRoutes = ({
     path: '/',
     children: DataSourceWrapper,
     private: true,
-    props: { children: WorkList, servicesManager, extensionManager },
+    props: { children: WorkListV2, servicesManager, extensionManager },
   };
 
   const customRoutes = customizationService.getGlobalCustomization(
