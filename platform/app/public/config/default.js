@@ -1,5 +1,7 @@
 window.config = {
+  //routerBasename: '/viewer/',
   routerBasename: '/',
+
   // whiteLabeling: {},
   extensions: [],
   modes: [],
