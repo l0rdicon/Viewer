@@ -5,12 +5,7 @@ import i18n from '@ohif/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { BrowserRouter } from 'react-router-dom';
 import Compose from './routes/Mode/Compose';
-import {
-  ServicesManager,
-  ExtensionManager,
-  CommandsManager,
-  HotkeysManager,
-} from '@ohif/core';
+import { ServicesManager, ExtensionManager, CommandsManager, HotkeysManager } from '@ohif/core';
 import {
   DialogProvider,
   Modal,
@@ -42,9 +37,7 @@ function App({ config, defaultExtensions, defaultModes }) {
   const [init, setInit] = useState(null);
   useEffect(() => {
     const run = async () => {
-      appInit(config, defaultExtensions, defaultModes)
-        .then(setInit)
-        .catch(console.error);
+      appInit(config, defaultExtensions, defaultModes).then(setInit).catch(console.error);
     };
 
     run();
@@ -62,13 +55,7 @@ function App({ config, defaultExtensions, defaultModes }) {
 
   // Set appConfig
   const appConfigState = init.appConfig;
-  const {
-    routerBasename,
-    modes,
-    dataSources,
-    oidc,
-    showStudyList,
-  } = appConfigState;
+  const { routerBasename, modes, dataSources, oidc, showStudyList } = appConfigState;
 
   const {
     uiDialogService,
@@ -93,8 +80,7 @@ function App({ config, defaultExtensions, defaultModes }) {
     [DialogProvider, { service: uiDialogService }],
     [ModalProvider, { service: uiModalService, modal: Modal }],
   ];
-  const CombinedProviders = ({ children }) =>
-    Compose({ components: providers, children });
+  const CombinedProviders = ({ children }) => Compose({ components: providers, children });
 
   let authRoutes = null;
 
