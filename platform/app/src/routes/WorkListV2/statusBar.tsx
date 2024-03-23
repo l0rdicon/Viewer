@@ -16,7 +16,7 @@ export default (props: IStatusPanelParams) => {
       style={style}
       type="button"
       onClick={onClick}
-      value="Click Me For Selected Row Count"
+      value="Click Me For Profit"
     />
   );
 };
