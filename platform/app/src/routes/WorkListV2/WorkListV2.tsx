@@ -15,7 +15,6 @@ import { utils, hotkeys, ServicesManager } from '@ohif/core';
 import DetailCellRenderer from './detailCellRenderer';
 import StatusBarComponent from './statusBar';
 
-
 import {
   Icon,
   StudyListExpandedRow,
@@ -42,9 +41,7 @@ import { AgGridReact } from 'ag-grid-react';
 import 'ag-grid-community/styles/ag-grid.css';
 import './ag-theme-balham.css';
 
-import {
-  StatusPanelDef
-} from 'ag-grid-community';
+import { StatusPanelDef } from 'ag-grid-community';
 import { forEach } from 'lodash';
 
 //import 'ag-grid-community/styles/ag-theme-alpine.css'
@@ -72,8 +69,8 @@ function WorkListV2({
   const { hotkeyDefinitions, hotkeyDefaults } = hotkeysManager;
   const { show, hide } = useModal();
   const { t } = useTranslation();
-  const gridRef = useRef(); 
-  
+  const gridRef = useRef();
+
   // ~ Modes
   const [appConfig] = useAppConfig();
   const { create, dismiss } = useDialog();
@@ -82,7 +79,7 @@ function WorkListV2({
   const navigate = useNavigate();
   //const STUDIES_LIMIT = 101;
   //const queryFilterValues = _getQueryFilterValues(searchParams);
- /* const [filterValues, _setFilterValues] = useState({
+  /* const [filterValues, _setFilterValues] = useState({
     ...defaultFilterValues,
     ...queryFilterValues,
   });*/
@@ -98,7 +95,6 @@ function WorkListV2({
   //const canSort = studiesTotal < STUDIES_LIMIT;
   //const shouldUseDefaultSort = sortBy === '' || !sortBy;
 
-
   const [studiesWithSeriesData, setStudiesWithSeriesData] = useState([]);
   const numOfStudies = studiesTotal;
 
@@ -110,22 +106,20 @@ function WorkListV2({
     };
   }, []);
 
-
   const [rowData, setRowData] = useState(studies);
-  console.log("loading worklist, studies: ", studies);
+  console.log('loading worklist, studies: ', studies);
 
   useEffect(() => setRowData(studies), [studies]);
 
   const getRowId = useMemo(() => {
-    return (params) => {
-      console.log("getRowId: ", params.data)
-      return params.data.studyInstanceUid
+    return params => {
+      console.log('getRowId: ', params.data);
+      return params.data.studyInstanceUid;
     };
   }, []);
 
-
-  const cellDoubleClickedListener = useCallback( event => {
-    let validDisplayModes = []
+  const cellDoubleClickedListener = useCallback(event => {
+    const validDisplayModes = [];
     appConfig.loadedModes.map((mode, i) => {
       const modalitiesToCheck = event.data.modalities.replaceAll('/', '\\');
       const study = event.data;
@@ -134,24 +128,23 @@ function WorkListV2({
         study,
       });
 
-      if(isValidMode) { 
+      if (isValidMode) {
         validDisplayModes.push({
           mode: mode,
-          study: study
-        }
-        )
+          study: study,
+        });
       }
-    })
-    if(validDisplayModes.length > 1) {
-      let actions = []
+    });
+    if (validDisplayModes.length > 1) {
+      const actions = [];
       validDisplayModes.map((display, i) => {
         actions.push({
-            id: display.mode.routeName,
-            text: display.mode.displayName,
-            type:  ButtonEnums.type.primary,
-            value: display.study.studyInstanceUid
-        })
-      })
+          id: display.mode.routeName,
+          text: display.mode.displayName,
+          type: ButtonEnums.type.primary,
+          value: display.study.studyInstanceUid,
+        });
+      });
 
       create({
         id: 'display-mode-dialog',
@@ -159,80 +152,88 @@ function WorkListV2({
         isDraggable: false,
         content: Dialog,
         contentProps: {
-          title: "Select a Display Mode",
+          title: 'Select a Display Mode',
           onSubmit: ({ action, value }) => {
             const query = new URLSearchParams();
             query.append('StudyInstanceUIDs', action.value);
-            let to= dataPath ? '../../' : '' + action.id + (dataPath || '') + '?' + query.toString()
-            console.log("submit: ", action.id, action.value, to)
+            const to = dataPath
+              ? '../../'
+              : '' + action.id + (dataPath || '') + '?' + query.toString();
+            console.log('submit: ', action.id, action.value, to);
 
-            dismiss({ id: "display-mode-dialog" })
-            navigate(to)
+            dismiss({ id: 'display-mode-dialog' });
+            navigate(to);
           },
           actions: actions,
           onClose: () => {
-            dismiss({ id: "display-mode-dialog" })
+            dismiss({ id: 'display-mode-dialog' });
           },
           body: ({ value, setValue }) => {
             return (
               <div>
                 <Typography
-                   variant="subtitle"
-                   component="p"
-                   color="initial"
-                   className="flex items-center"
-                 >Select a display mode</Typography>
+                  variant="subtitle"
+                  component="p"
+                  color="initial"
+                  className="flex items-center"
+                  data-cy="options-chevron-down-icon"
+                ></Typography>
               </div>
-             );
+            );
           },
         },
-      })
+      });
     } else if (validDisplayModes.length === 1) {
       const query = new URLSearchParams();
       query.append('StudyInstanceUIDs', validDisplayModes[0].study.studyInstanceUid);
-      let to= dataPath ? '../../' : '' + validDisplayModes[0].mode.routeName + (dataPath || '') + '?' + query.toString()
+      const to = dataPath
+        ? '../../'
+        : '' + validDisplayModes[0].mode.routeName + (dataPath || '') + '?' + query.toString();
 
-      console.log("to: ", validDisplayModes, to)
-      navigate(to)
+      console.log('to: ', validDisplayModes, to);
+      navigate(to);
     }
-
 
     console.log('cellDoubleClickedListener', event, validDisplayModes.length, validDisplayModes);
   }, []);
 
-  const dateFromatter = (params) => {
+  const dateFromatter = params => {
     const studyDate =
-    params.value &&
-    moment(params.value, ['YYYYMMDD', 'YYYY.MM.DD'], true).isValid() &&
-    moment(params.value, ['YYYYMMDD', 'YYYY.MM.DD']).format('MMM-DD-YYYY');
+      params.value &&
+      moment(params.value, ['YYYYMMDD', 'YYYY.MM.DD'], true).isValid() &&
+      moment(params.value, ['YYYYMMDD', 'YYYY.MM.DD']).format('MMM-DD-YYYY');
     return studyDate;
   };
 
   const [columnDefs, setColumnDefs] = useState([
-    { field: 'patientName', 
+    {
+      field: 'patientName',
       filterParams: {
-        caseSensitive: true 
-      }, 
-      filter: 'agTextColumnFilter' ,
-      cellRenderer: 'agGroupCellRenderer'
+        caseSensitive: true,
+      },
+      filter: 'agTextColumnFilter',
+      cellRenderer: 'agGroupCellRenderer',
     },
     { field: 'mrn', filter: 'agTextColumnFilter' },
     { field: 'date', filter: 'agDateColumnFilter', valueFormatter: dateFromatter },
     { field: 'description' },
     { field: 'modality', filter: 'agTextColumnFilter' },
     { field: 'accession', filter: 'agTextColumnFilter' },
-    { field: 'instances' }
+    { field: 'instances' },
   ]);
 
   // DefaultColDef sets props common to all Columns
-  const defaultColDef = useMemo( ()=> ({
+  const defaultColDef = useMemo(
+    () => ({
       sortable: true,
-      floatingFilter: true
-    }), null);
+      floatingFilter: true,
+    }),
+    null
+  );
 
-    const detailCellRenderer = useMemo(() => {
-      return DetailCellRenderer;
-    }, []);
+  const detailCellRenderer = useMemo(() => {
+    return DetailCellRenderer;
+  }, []);
 
   // Sync URL query parameters with filters
   /*useEffect(() => {
@@ -276,14 +277,14 @@ function WorkListV2({
   }, [debouncedFilterValues]);
   */
 
-  const onGridReady = useCallback((params) => {
+  const onGridReady = useCallback(params => {
     params.api.sizeColumnsToFit();
     window.addEventListener('resize', function () {
       setTimeout(function () {
         params.api.sizeColumnsToFit();
       });
     });
-    if(gridRef && gridRef.current) {
+    if (gridRef && gridRef.current) {
       gridRef.current.api.sizeColumnsToFit();
     }
   }, []);
@@ -312,21 +313,19 @@ function WorkListV2({
         console.warn(ex);
       }
     };
-   // fetchSeries(studyInstanceUid);
-   
+    // fetchSeries(studyInstanceUid);
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [studies]);
 
   const onSelectionChanged = useCallback(() => {
-    
-    if(gridRef && gridRef.current) {
+    if (gridRef && gridRef.current) {
       const selectedRows = gridRef.current.api.getSelectedRows();
-      console.log("selectedRows: ", selectedRows);
+      console.log('selectedRows: ', selectedRows);
 
       //setRowData(studies);
     }
   }, []);
-
 
   const hasStudies = numOfStudies > 0;
   const versionNumber = process.env.VERSION_NUMBER;
@@ -351,9 +350,7 @@ function WorkListV2({
           title: t('UserPreferencesModal:User Preferences'),
           content: UserPreferences,
           contentProps: {
-            hotkeyDefaults: hotkeysManager.getValidHotkeyDefinitions(
-              hotkeyDefaults
-            ),
+            hotkeyDefaults: hotkeysManager.getValidHotkeyDefinitions(hotkeyDefaults),
             hotkeyDefinitions,
             onCancel: hide,
             currentLanguage: currentLanguage(),
@@ -371,44 +368,36 @@ function WorkListV2({
     },
   ];
 
-  
   return (
-    <div className="bg-black h-screen flex flex-col ">
+    <div className="flex h-screen flex-col bg-black ">
       <Header
         isSticky
         menuOptions={menuOptions}
         isReturnEnabled={false}
         WhiteLabeling={appConfig.whiteLabeling}
       />
-      <div className="ag-theme-balham-dark overflow-y-auto ohif-scrollbar" style={{ width: '100%', height: '100%' }}>
-          <AgGridReact
-              
-              ref={gridRef}
-              rowData={rowData}
+      <div
+        className="ag-theme-balham-dark ohif-scrollbar overflow-y-auto"
+        style={{ width: '100%', height: '100%' }}
+      >
+        <AgGridReact
+          ref={gridRef}
+          rowData={rowData}
+          onGridReady={onGridReady}
+          masterDetail={true}
+          detailCellRenderer={detailCellRenderer}
+          detailRowHeight={210}
+          columnDefs={columnDefs}
+          defaultColDef={defaultColDef}
+          getRowId={getRowId}
+          suppressCellFocus={true}
+          onCellDoubleClicked={cellDoubleClickedListener}
+          statusBar={statusBar}
+          //enableAdvancedFilter={true}
 
-              onGridReady={onGridReady}
-
-              masterDetail={true}
-              detailCellRenderer={detailCellRenderer}
-              detailRowHeight={210}
-              
-              columnDefs={columnDefs}
-              defaultColDef={defaultColDef}
-
-              getRowId={getRowId}
-              suppressCellFocus={true}
-
-              onCellDoubleClicked={cellDoubleClickedListener}
-
-              statusBar={statusBar}
-              
-
-              //enableAdvancedFilter={true}
-
-              rowSelection='single'
-              onSelectionChanged={onSelectionChanged}
-          >
-          </AgGridReact>
+          rowSelection="single"
+          onSelectionChanged={onSelectionChanged}
+        ></AgGridReact>
       </div>
     </div>
   );
@@ -461,9 +450,7 @@ function _getQueryFilterValues(params) {
       endDate: params.get('enddate') || null,
     },
     description: params.get('description'),
-    modalities: params.get('modalities')
-      ? params.get('modalities').split(',')
-      : [],
+    modalities: params.get('modalities') ? params.get('modalities').split(',') : [],
     accession: params.get('accession'),
     sortBy: params.get('sortby'),
     sortDirection: params.get('sortdirection'),
@@ -480,7 +467,5 @@ function _getQueryFilterValues(params) {
 
   return queryFilterValues;
 }
-
-
 
 export default WorkListV2;

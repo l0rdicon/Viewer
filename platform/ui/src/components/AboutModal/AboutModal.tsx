@@ -39,7 +39,7 @@ const Row = ({ title, value, link }) => {
         component="p"
         className="w-48 text-white"
       >
-        {title}
+        <b>{title}</b>:
       </Typography>
 
       {link ? (
@@ -81,7 +81,7 @@ const AboutModal = ({ buildNumber, versionNumber, commitHash }) => {
           href="https://community.ohif.org/"
           showIcon={true}
         >
-            {t('Visit the forum')}
+          {t('Visit the forum')}
         </Link>
         <span className="ml-4">
           <Link
@@ -96,12 +96,12 @@ const AboutModal = ({ buildNumber, versionNumber, commitHash }) => {
             href="https://ohif.org/"
             showIcon={true}
           >
-          {t('More details')}
+            {t('More details')}
           </Link>
         </span>
       </div>
 
-      {renderRowTitle(t('Version information'))}
+      {renderRowTitle(t('Version information & Build Details'))}
       <div className="flex flex-col">
         <Row
           title={t('Repository URL')}
@@ -141,6 +141,14 @@ const AboutModal = ({ buildNumber, versionNumber, commitHash }) => {
         <Row
           title={t('OS')}
           value={os}
+        />
+        <Row
+          title={t('NIPS')}
+          value={t('Networked Image Processing System')}
+        />
+        <Row
+          title={t('TEAM')}
+          value={t('CannonRad North')}
         />
       </div>
     </div>

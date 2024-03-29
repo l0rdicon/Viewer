@@ -201,7 +201,12 @@ const DialogProvider = ({ children, service }) => {
               isDragging && 'dragging',
               isDraggable && 'draggable'
             )}
-            style={{ zIndex: '999', position: 'absolute', width: '350px' }}
+            style={{
+              zIndex: '999',
+              position: 'absolute',
+              width: '30vw',
+              border: '1px solid #FFF',
+            }}
             onClick={() => _bringToFront(id)}
           >
             <DialogContent

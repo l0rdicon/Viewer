@@ -45,3 +45,6 @@ platform/app/.recipes/OpenResty-Orthanc/logs/*
 .vercel
 
 .vs
+./platform/app/.env
+./platform/app/.env
+.env

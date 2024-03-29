@@ -51,14 +51,18 @@ function Header({
                 className="text-primary-active w-8"
               />
             )}
-            <div className="ml-4">
-              {WhiteLabeling?.createLogoComponentFn?.(React, props) || <Svg name="logo-ohif" />}
+            <div className="logo-text ml-4">
+              <b className="nips-text">N.I.P.S</b> <b className="gold-text">DONGVIEWER 9000</b>
             </div>
+            <br></br>
+            <sub className="small-logo-text">
+              <b>N</b>etwork <b>I</b>mage <b>P</b>rocessing <b>S</b>ervice{' '}
+              <i>by: CannonRad North</i>
+            </sub>
           </div>
         </div>
         <div className="flex items-center">{children}</div>
         <div className="flex items-center">
-          <span className="text-common-light mr-3 text-lg">{t('INVESTIGATIONAL USE ONLY')}</span>
           <Dropdown
             id="options"
             showDropdownIcon={false}
@@ -70,7 +74,7 @@ function Header({
               variant="text"
               color="inherit"
               size="initial"
-              className="text-primary-active"
+              className="text-primary-active settings-gear"
             >
               <Icon name="settings" />
             </IconButton>
@@ -79,7 +83,7 @@ function Header({
               variant="text"
               color="inherit"
               size="initial"
-              className="text-primary-active"
+              className="text-primary-active settings-chevron"
             >
               <Icon name="chevron-down" />
             </IconButton>

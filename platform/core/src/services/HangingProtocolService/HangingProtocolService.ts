@@ -65,7 +65,7 @@ export default class HangingProtocolService extends PubSubService {
   customViewportSettings = [];
   displaySets: IDisplaySet[] = [];
   activeStudy: StudyMetadata;
-  debugLogging: false;
+  debugLogging: true;
 
   customAttributeRetrievalCallbacks = {
     NumberOfStudyRelatedSeries: {

@@ -11,6 +11,7 @@ const CloseButton = ({ onClick }) => {
       data-cy="close-button"
       onClick={onClick}
       name="close"
+      id="close-button"
       className="text-primary-active cursor-pointer"
     />
   );

@@ -14,7 +14,8 @@ const NavBar = ({ className, children, isSticky }) => {
         !isSticky && notStickyClasses,
         className
       )}
-      style={{ paddingTop: '4px', paddingBottom: '4px', minHeight: '52px' }}
+      id={'top-nav-fancy'}
+      style={{ paddingTop: '2px', paddingBottom: '2px', minHeight: '5%' }}
     >
       {children}
     </div>
