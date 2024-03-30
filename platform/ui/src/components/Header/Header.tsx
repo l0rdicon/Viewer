@@ -52,17 +52,21 @@ function Header({
               />
             )}
             <div className="logo-text ml-4">
-              <b className="nips-text">N.I.P.S</b> <b className="gold-text">DONGVIEWER 9000</b>
+              <b className="nips-text">
+                N.I.P.S<b className="tm">™</b>
+              </b>
+              &nbsp;&nbsp;&nbsp;
+              <b className="gold-text">DONGVIEWER 9000©</b>
             </div>
             <br></br>
             <sub className="small-logo-text">
               <b>N</b>etwork <b>I</b>mage <b>P</b>rocessing <b>S</b>ervice{' '}
-              <i>by: CannonRad North</i>
+              <i>by: CannonRad North™</i>
             </sub>
           </div>
         </div>
         <div className="flex items-center">{children}</div>
-        <div className="flex items-center">
+        <div className="settings-cluster flex items-center">
           <Dropdown
             id="options"
             showDropdownIcon={false}

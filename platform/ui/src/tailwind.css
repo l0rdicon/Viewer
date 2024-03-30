@@ -102,6 +102,21 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#282828",endCo
   color: white;
 }
 
+.tm {
+  color: white;
+}
+
+button.box-content {
+  border: 3px outset #161d5f;
+  border-radius: 3px;
+  text-shadow: 1px 0px 0px #000, -1px 0px 0px #000, 0px 1px 0px #000, 0px -1px 0px #000;
+}
+
+button.box-content:active {
+  border: 3px outset #2b348a;
+  background-color: #007aff !important;
+}
+
 .close-button {
   color: red !important;
 }
@@ -131,6 +146,11 @@ span.ag-icon.ag-icon-menu {
   opacity: 100% !important;
 }
 
+.ag-header-viewport {
+  border-top: outset 1px #161d5f !important; /* Inner border */
+  border-bottom: outset 2px #161d5f !important; /* Inner border */
+}
+
 .ag-text-field-input {
   background: linear-gradient(to bottom, #010101 5%, #05071a 80%, #000 105%) !important;
   transition: all 0.0569420s;
@@ -151,6 +171,14 @@ span.ag-icon.ag-icon-menu {
   box-shadow: inset 0px 10px 10px rgba(75, 75, 75, 0.20) !important;
   border: inset 2px #161d5f !important; /* Inner border */
   filter: drop-shadow(0px 4px 3px #161d5f) !important;
+}
+
+.settings-cluster {
+  transition: 0.25s all;
+}
+
+.settings-cluster:hover {
+  color: white !important; /* Override the default color */
 }
 
 .settings-gear {
